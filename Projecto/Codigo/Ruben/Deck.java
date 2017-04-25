@@ -1,6 +1,7 @@
 package videoPoker;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Deck {
@@ -25,20 +26,30 @@ public class Deck {
 		}
 	}
 	
-	public Deck(String[] cardsVector){
+	public Deck(ArrayList<String> cardsVector){
 		/** For a deck considering that a file is provided */
-		
+		for(String s: cardsVector){
+			Card card = new Card(s);
+			deck.add(card);
+		}
 	}
 	
 	public List<Card> getDeck() {
 		return deck;
 	}
 
-	public List<Card> getOneCard() {
-		return deck;
+	public Card getOneCard(int indexOfCards) {
+		
+		Card card = deck.get(indexOfCards);
+		
+		return card;
 	}
 	
 	public void setDeck(List<Card> deck) {
 		this.deck = deck;
+	}
+	
+	public void shuffle(){
+		Collections.shuffle(this.deck);
 	}
 }

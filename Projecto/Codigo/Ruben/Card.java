@@ -1,6 +1,7 @@
 package videoPoker;
 
 public class Card {
+	private String rank;
 	private String suit;
 	private int value;
 	
@@ -18,7 +19,7 @@ public class Card {
 					+ "Strong with your Deck the force is not!");
 		}
 		
-		String rank = card.substring(0,1);
+		this.rank = card.substring(0,1);
 		
 		if (rank.equals("T"))
 		{
@@ -49,6 +50,14 @@ public class Card {
 		}
 	}
 
+	public String getRank() {
+		return rank;
+	}
+
+	public void setRank(String rank) {
+		this.rank = rank;
+	}
+
 	public String getSuit() {
 		return suit;
 	}
@@ -59,6 +68,7 @@ public class Card {
 	
 	public void printCard(){
 		System.out.println("Card Value - " + this.value + 
+				" Card Rank - " + this.rank +
 				" And the Suit - " + this.suit);
 	}
 

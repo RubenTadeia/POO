@@ -1,4 +1,4 @@
-package videoPoker;
+package VideoPoker;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -15,17 +15,21 @@ public class FileHandler {
 		String cardsLine = "";
 		cardsVector = new ArrayList<String>();
 		
+		
 		try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
 			   String line = null;
 			   while ((line = br.readLine()) != null) {
-				   /** We do the split with the space to remove enters*/
-				   cardsLine = cardsLine.concat(line + " ");
+				   cardsLine = cardsLine.concat(line);
 			   }
 			   
-			   String[] cardsWithSpaces = cardsLine.split("\\W+");
+			   String[] cardsWithSpaces = cardsLine.split(" ");
 			   
 			   for (String content : cardsWithSpaces){
-				   this.cardsVector.add(content);
+				   if (content.length() == 2)
+				   {
+					   this.cardsVector.add(content);
+					   System.out.println("content = "+content);
+				   }
 			   }
 			   
 			   this.cardsNumber = cardsVector.size();

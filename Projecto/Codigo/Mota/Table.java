@@ -7,7 +7,7 @@ public class Table {
 	public void updateDraw(Deck deck){
 		for(int i=0;i<5;i++){
 			if(hold[i]==false){
-				draw[i]=deck.getNewCard();
+			//	draw[i]=deck.getNewCard();
 			}
 		}
 	}

@@ -8,12 +8,12 @@ public class Main {
 		FileHandler cardsInput = new FileHandler("./src/videoPoker/card-file.txt");
 	
 		/* Test for FileHandler */
-		/** cardsInput.printCards();*/
+		/**cardsInput.printCards();*/
 		
 		ArrayList<String> cardsVector = new ArrayList<String>();
 
 		cardsVector = cardsInput.getCardsVector();
-		Deck deck = new Deck();
+		Deck deck = new Deck(cardsVector);
 		
 		/* Another test - Card Class */
 		/**for(String line : cardsVector){
@@ -22,10 +22,14 @@ public class Main {
 			/**card.printCard();
 		}*/
 		
-		/* Test for deck */
+		deck.shuffle();
+		
+		/* Print for deck */
 		for (Card c : deck.getDeck())
 		{
 			c.printCard();
 		}
+		
+		
 	}
 }
