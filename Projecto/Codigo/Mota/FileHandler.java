@@ -15,21 +15,17 @@ public class FileHandler {
 		String cardsLine = "";
 		cardsVector = new ArrayList<String>();
 		
-		
 		try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
 			   String line = null;
 			   while ((line = br.readLine()) != null) {
-				   cardsLine = cardsLine.concat(line);
+				   /** We do the split with the space to remove enters*/
+				   cardsLine = cardsLine.concat(line + " ");
 			   }
 			   
-			   String[] cardsWithSpaces = cardsLine.split(" ");
+			   String[] cardsWithSpaces = cardsLine.split("\\W+");
 			   
 			   for (String content : cardsWithSpaces){
-				   if (content.length() == 2)
-				   {
-					   this.cardsVector.add(content);
-					   System.out.println("content = "+content);
-				   }
+				   this.cardsVector.add(content);
 			   }
 			   
 			   this.cardsNumber = cardsVector.size();

@@ -1,27 +1,19 @@
 package VideoPoker;
+
 import java.util.ArrayList;
 
 public class Main {
 	public static void main(String[] args){
-
-		FileHandler cardsInput = new FileHandler("./src/VideoPoker/card-file.txt");
+		
+		FileHandler cardsInput = new FileHandler("./src/videoPoker/card-file.txt");
 	
 		/* Test for FileHandler */
-		/** cardsInput.printCards();*/
+		/**cardsInput.printCards();*/
 		
 		ArrayList<String> cardsVector = new ArrayList<String>();
 
 		cardsVector = cardsInput.getCardsVector();
-		Deck deck = new Deck();
-		
-		/** From File now*/ 
-		//FileHandler s = new FileHandler("card-file.txt");
-
-		ArrayList<String> cardsVector2 = new ArrayList<String>();
-		cardsVector2 = cardsInput.getCardsVector();
-		//é preciso converter para String para o Deck associar
-		
-		Deck deck2 = new Deck(cardsVector);
+		Deck deck = new Deck(cardsVector);
 		
 		/* Another test - Card Class */
 		/**for(String line : cardsVector){
@@ -30,10 +22,34 @@ public class Main {
 			/**card.printCard();
 		}*/
 		
-		/* Test for deck */
-		for (Card c : deck2.getDeck())
+		deck.shuffle();
+		
+//		Card pul = new Card("3H");
+//		pul = deck.getOneCard(0);
+//		pul.printCard();
+//		
+
+		
+		Hand draw = new Hand(deck,5);
+		draw.printHand();
+		System.out.println("Updating hold 2,3,1");
+		int[] c = {2,3,1};
+		draw.updateHold(c);
+		//draw.printHold();
+		System.out.println("Updating hand");
+		draw.updateHand();
+		draw.printHand();
+		//deck.shuffle();
+		draw.renewHand(deck);
+		draw.printHand();
+		
+		System.out.println("Printing Deck");
+		/* Print for deck */
+		for (Card k : deck.getDeck())
 		{
-			c.printCard();
+			k.printCard();
 		}
+		
+		
 	}
 }
