@@ -18,7 +18,7 @@ public class FileHandler {
 		try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
 			   String line = null;
 			   while ((line = br.readLine()) != null) {
-				   /** We do the split with the space to remove enters*/
+				   /* We do the split with the space to remove enters*/
 				   cardsLine = cardsLine.concat(line + " ");
 			   }
 			   
@@ -56,7 +56,7 @@ public class FileHandler {
 		this.cardsVector = cardsVector;
 	}
 
-	/** Just for testing */
+	/* Just for testing */
 	public void printCards()
 	{
 		for (String line : cardsVector){

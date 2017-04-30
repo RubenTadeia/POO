@@ -27,7 +27,7 @@ public class Deck {
 	}
 	
 	public Deck(ArrayList<String> cardsVector){
-		/** For a deck considering that a file is provided */
+		/* For a deck considering that a file is provided */
 		for(String s: cardsVector){
 			Card card = new Card(s);
 			deck.add(card);
@@ -40,9 +40,7 @@ public class Deck {
 
 	public Card getOneCard(int indexOfCards) {
 		
-		Card card = deck.get(indexOfCards);
-		
-		return card;
+		return deck.get(indexOfCards);
 	}
 	
 	public void setDeck(List<Card> deck) {
