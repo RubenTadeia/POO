@@ -1,4 +1,4 @@
-package videoPoker;
+package VideoPoker;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,14 +8,11 @@ public class Hand {
 	private List<Card> hand = new ArrayList<>();
 	private boolean[] hold;
 	
-	public Hand(List<Card> deck)
-	{
+	public Hand(Deck deck){
 		this.hold = new boolean[5];
-		for(int i=0;i<10;i++)
-		{
-		  	this.hand.add(deck.get(i));
-			if(i<5)
-			{
+		for(int i=0;i<10;i++){
+		  	this.hand.add(deck.getOneCard(i));
+			if(i<5){
 				this.hold[i] = false;
 			}
 		}
@@ -39,10 +36,9 @@ public class Hand {
 	}
 
 	public void printHand(){		
-		System.out.println("player's hand size: "+ this.hand.size());
 		System.out.print("player's hand : ");
-		for(int i=0;i<hold.length;i++)
-		{
+		System.out.println("player's hand size: "+ this.hand.size());
+		for(int i=0;i<hold.length;i++){
 			hand.get(i).printCard();
 		}
 		System.out.println("");
@@ -50,8 +46,7 @@ public class Hand {
 	
 	public void updateHand(){		
 		int swapPoint = hold.length;
-		for(int i=0;i<hold.length;i++)
-		{
+		for(int i=0;i<hold.length;i++){
 			if(this.hold[i]==false){
 				Collections.swap(hand, i, swapPoint);
 				hand.remove(hold.length);
@@ -60,35 +55,22 @@ public class Hand {
 	}
 	
 	public void updateHold(int [] setTrue){
-		if(setTrue.length == 0)
-		{
-			return;
-		}
-		for(int i=0;i<setTrue.length;i++)
-		{
+		if(setTrue.length == 0) return;
+		for(int i=0;i<setTrue.length;i++){
 			hold[setTrue[i]]=true;
 		}
 	}
 	
-	public void renewHand(List<Card> deck){
-		for(int i=0;i<hold.length;i++)
-		{
-			// There are 2 ways of playing  
-			// if(mode==1)
-			 hand.set(i, deck.get(hand.size()+i));
+	public void renewHand(Deck deck){
+		for(int i=0;i<hold.length;i++){
+			//Existem duas maneiras de biscar!!if(mode==1)
+			 hand.set(i, deck.getOneCard(hand.size()+i));
 			//else hand.set(i, deck.getOneCard(c));
-			if(i<hand.size()/2)
-			{
-				hold[i]=false;
-			}
+			if(i<hand.size()/2) hold[i]=false;
 		}
 	}
 	
-	public void printHold()
-	{
-		for(int i=0;i<hold.length;i++)
-		{
-			System.out.println(hold[i]);
-		}
+	public void printHold(){
+		for(int i=0;i<hold.length;i++) System.out.println(hold[i]);
 	}
 }

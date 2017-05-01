@@ -33,30 +33,42 @@ public class Main {
 		/** This second argument integer 5
 		 * 	is the number of Cards to remove from the deck. It is here
 		 *  so the professor can change it in cause of having will to do it */
-		Hand hand = new Hand(deck.getDeck(), 5);
+		Hand hand = new Hand(deck.getDeck());
 		
 		/* Print for Hand */
-		hand.printHand();
+		/**hand.printHand();*/
 		
-		/** Updates Card number 2 and number 4 */
-		int[] indexToHold = {1,3};
+		/** Holds card number 2 and number 4 */
+		
+		/** Functions to test the hand */
+		/*int[] indexToHold = {2,4};
 		
 		hand.updateHold(indexToHold);
 		
 		hand.updateHand();
 		
-		hand.printHand();
+		hand.renewHand(deck.getDeck());
+		
+		hand.printHand(); */
+		
+		/* Print for hand before the analyser */
+		/**for (int it = 0; it < 5; it ++)
+		{
+			hand.getHand().get(it).printCard();
+		}*/
 		
 		Analyser a = new Analyser(hand.getHand());
 		
 		a.sorting();
 		
-		/* Print for analyser */
-		for (Card d : a.getDraw())
+		/* Print for hand before the analyser */
+		/**for (Card d : hand.getHand())
 		{
 			d.printCard();
-		}
-		System.out.println("");
+		}*/
+		
+		a.printDraw();
+		
 		int analyseResult = a.getCheckerResult();
 		System.out.println(analyseResult);
 	}

@@ -10,9 +10,10 @@ public class Analyser {
 	 * draw has only 5 cards instead of 10 */
 	private List<Card> draw = new ArrayList<>();
 
-	/* Get an ArrayList of size 10 */
+	/* Get an ArrayList of at max size 10
+	 * but converts it to size 5 */
 	public Analyser (List<Card> hand){
-		for (int i=0; i < hand.size() ;i++){
+		for (int i=0; i < 5; i++){
 			this.draw.add(hand.get(i));
 		}
 	}
@@ -72,6 +73,22 @@ public class Analyser {
 	}
 	
 	public boolean checkPair()
+	/** This method checks if there is at least a pair of Jacks or Higher */
+	{
+		/* Need a new name for this variable */
+		int iterationValue = draw.get(0).getValue();
+		
+		for (int i = 1; i < this.draw.size(); i++)
+		{
+			if(iterationValue == draw.get(i).getValue()){
+				return true;
+			}
+			iterationValue = draw.get(i).getValue();
+		}
+		return false;
+	}
+	
+	public boolean checkHighPair()
 	/** This method checks if there is at least a pair of Jacks or Higher */
 	{
 		/* Need a new name for this variable */
@@ -164,32 +181,73 @@ public class Analyser {
 		/** This is the integer that we will
 		 *  return from this function. Depending
 		 *  on its value, we result we have on our hand */
-		int analyseResult;
+		
+		int analyseResult = 9; 
+		/** This number means that the player has nothing on the hand */
+		
+		/* Check Straight */
+		if (checkStraight())
+		{
+			if (checkFlush()) /* We have Straight flush */
+			{
+				analyseResult = 7;
+				
+				if (draw.get(1).getValue() == 10) /* We have Royal Flush */
+				{
+					analyseResult = 8;
+				}
+			}
+			else{ /* We only have Straight */
+				analyseResult = 3;
+			}
+		}
 		
 		/* Check Flush */
-		if (checkFlush())
+		else if (checkFlush())
 		{
 			analyseResult = 4;
 		}
 		
-		/* Check Straight */
-		else if (checkStraight())
-		{
-			analyseResult = 3;
-		}
-		
 		/* Check at least one Pair */
-		else if (checkPair())
+		else if (checkPair()) /* Low Pair */
 		{
-			analyseResult = 0;
+			if (checkHighPair()) /* High valid Pair */
+			{
+				analyseResult = 0;
+			}
+			
+			if (check2Pairs()) /* Two Pairs */
+			{
+				analyseResult = 1;
+				
+				if (checkThree()) /* Full House */
+				{
+					analyseResult = 5;
+				}
+			}
+			
+			else if (checkThree()) /* Three of a kind */
+			{
+				analyseResult = 2;
+			}
+			
+			else if (checkPoker()) /* Poker */
+			{
+				analyseResult = 6;
+			}
 		}
 		
-		else{ /** Enters here if nothing goes right
-		meaning that  */
-			analyseResult = 9;
-		}
 		return analyseResult;
 		
+	}
+	
+	public void printDraw()
+	{
+		for(int i=0;i<draw.size();i++)
+		{
+			draw.get(i).printCard();
+		}
+		System.out.println("");
 	}
 	
 }
