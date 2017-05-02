@@ -57,9 +57,9 @@ public class Main {
 			hand.getHand().get(it).printCard();
 		}*/
 		
-		Analyser a = new Analyser(hand.getHand());
+		Analyser analyser = new Analyser(hand.getHand());
 		
-		a.sorting();
+		analyser.sorting();
 		
 		/* Print for hand before the analyser */
 		/**for (Card d : hand.getHand())
@@ -67,9 +67,15 @@ public class Main {
 			d.printCard();
 		}*/
 		
-		a.printDraw();
+		/** analyser.printDraw();*/
 		
-		int analyseResult = a.getCheckerResult();
-		System.out.println(analyseResult);
+		int analyseResult = analyser.getCheckerResult();
+		/** System.out.println(analyseResult);*/
+		
+		Prizes prizes = new Prizes();
+		
+		int reward = prizes.getRewardValue(5, analyseResult, analyser.getDraw());
+		System.out.println("reward is = " + reward);
+		
 	}
 }

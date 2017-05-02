@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Prizes {
 	private int[] rewards;
-	private int doubleBonus;
+	private int doubleBonus; /* Wont be much of a help */
 	
 	public int[] getRewards() {
 		return rewards;
@@ -33,6 +33,8 @@ public class Prizes {
 		setDoubleBonus(1); /** If the professor changes this parameter you can change
 		the game mode */
 		
+		rewards = new int[12];
+		
 		if (doubleBonus == 1)
 		{
 			rewards[0] = 1; /* Pair*/
@@ -59,31 +61,31 @@ public class Prizes {
 		int rewardValue;
 		switch (handResult) {
         
-		case 1:  handResult = 0; /* High Pair */
+		case 0: /* High Pair */
 			rewardValue = bet * rewards[handResult] + bet;
         	break;
         
-        case 2:  handResult = 1; /* 2 Pairs */
+        case 1: /* 2 Pairs */
         	rewardValue = bet * rewards[handResult] + bet;
         	break;
         
-        case 3:  handResult = 2; /* Three of a Kind */
+        case 2: /* Three of a Kind */
     		rewardValue = bet * rewards[handResult] + bet;
         	break;
         
-        case 4:  handResult = 3; /* Straight */
+        case 3: /* Straight */
     		rewardValue = bet * rewards[handResult] + bet;
             break;
         
-        case 5:  handResult = 4; /* Flush */
+        case 4: /* Flush */
     		rewardValue = bet * rewards[handResult] + bet;
             break;
         
-        case 6:  handResult = 5; /* Full House */
+        case 5: /* Full House */
     		rewardValue = bet * rewards[handResult] + bet;
         	break;
         
-        case 7:  handResult = 6; /* Poker */
+        case 6: /* Poker */
         	if (sortedHand.get(3).getValue() >= 5 && sortedHand.get(3).getValue() <= 13){ /* 5-K Poker */
         		rewardValue = bet * rewards[handResult] + bet;
         	}
@@ -96,11 +98,11 @@ public class Prizes {
         	}
             break;
         
-        case 8:  handResult = 7; /* Straight Flush */
+        case 7: /* Straight Flush */
         	rewardValue = bet * rewards[handResult+2] + bet;
             break;
         
-        case 9:  handResult = 8; /* Royal Flush */
+        case 8: /* Royal Flush */
                 if(bet == 5)
                 {
                 	rewardValue = bet * rewards[handResult+3] + bet;
@@ -110,7 +112,7 @@ public class Prizes {
                 }
         		break;
         
-        case 10: handResult = 9; /* Nothing in your hand... Feel Sorry */
+        case 9: /* Nothing in your hand... Feel Sorry */
         		rewardValue = 0;
                 break;
         default:

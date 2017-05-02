@@ -192,7 +192,7 @@ public class Analyser {
 			{
 				analyseResult = 7;
 				
-				if (draw.get(1).getValue() == 10) /* We have Royal Flush */
+				if (draw.get(2).getValue() == 10) /* We have Royal Flush */
 				{
 					analyseResult = 8;
 				}
