@@ -77,5 +77,8 @@ public class Main {
 		int reward = prizes.getRewardValue(5, analyseResult, analyser.getDraw());
 		System.out.println("reward is = " + reward);
 		
+		Statistic stats = new Statistic(1500);
+		
+		stats.printStats();
 	}
 }
