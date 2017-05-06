@@ -7,15 +7,13 @@ import java.util.List;
 public class Hand {
 	private List<Card> hand = new ArrayList<>();
 	private boolean[] hold;
-	private int mode=0;
 	
-	public Hand(Deck deck, int numberOfCards){
-		this.hold = new boolean[numberOfCards];
-		for(int i=0;i<numberOfCards*2;i++){
-		  	this.hand.add(deck.getOneCard(i));
-			if(i<numberOfCards){
-				this.hold[i] = false;
-			}
+	public Hand(List<Card> deck)
+	{
+		this.hold = new boolean[5];
+		for(int i=0;i<10;i++)
+		{
+		  	this.hand.add(deck.get(i));
 		}
 		
 	}
@@ -28,10 +26,6 @@ public class Hand {
 		return hold;
 	}
 
-	public int getMode() {
-		return mode;
-	}
-
 	public void setHand(List<Card> hand) {
 		this.hand = hand;
 	}
@@ -40,14 +34,10 @@ public class Hand {
 		this.hold = hold;
 	}
 
-	public void setMode(int mode) {
-		this.mode = mode;
-	}
-
-	public void printHand(){		
+	public void printHand(){
 		System.out.print("player's hand : ");
-		System.out.println("player's hand size: "+ this.hand.size());
-		for(int i=0;i<hold.length;i++){
+		for(int i=0;i<hold.length;i++)
+		{
 			hand.get(i).printCard();
 		}
 		System.out.println("");
@@ -55,7 +45,8 @@ public class Hand {
 	
 	public void updateHand(){		
 		int swapPoint = hold.length;
-		for(int i=0;i<hold.length;i++){
+		for(int i=0;i<hold.length;i++)
+		{
 			if(this.hold[i]==false){
 				Collections.swap(hand, i, swapPoint);
 				hand.remove(hold.length);
@@ -63,23 +54,29 @@ public class Hand {
 		}
 	}
 	
-	public void updateHold(int [] setTrue){
-		if(setTrue.length == 0) return;
-		for(int i=0;i<setTrue.length;i++){
-			hold[setTrue[i]]=true;
+	public void updateHold(int setTrue){
+			hold[setTrue]=true;
+	}
+	
+	public void renewHand(List<Card> deck){
+		for(int i=0;i<hold.length;i++)
+		{
+			// There are 2 ways of playing  
+			// if(mode==1)
+			 hand.set(i, deck.get(hand.size()+i));
+			//else hand.set(i, deck.getOneCard(c));
+			if(i<hand.size()/2)
+			{
+				hold[i]=false;
+			}
 		}
 	}
 	
-	public void renewHand(Deck deck){
-		String c = "a";
-		for(int i=0;i<hold.length;i++){
-			if(mode==1) hand.set(i, deck.getOneCard(hand.size()+i));
-			else hand.set(i, deck.getOneCard(c));
-			if(i<hand.size()/2) hold[i]=false;
+	public void printHold()
+	{
+		for(int i=0;i<hold.length;i++)
+		{
+			System.out.println(hold[i]);
 		}
-	}
-	
-	public void printHold(){
-		for(int i=0;i<hold.length;i++) System.out.println(hold[i]);
 	}
 }

@@ -67,16 +67,14 @@ public class Card {
 	}
 	
 	public void printCardTest(){
-		System.out.print("Card Value - " + this.value + 
+		System.out.println("Card Value - " + this.value + 
 				" Card Rank - " + this.rank +
 				" And the Suit - " + this.suit);
 	}
 	
 	public void printCard(){
 		System.out.print(this.rank + this.suit + " ");
-	
 	}
-	
 
 	public int getValue() {
 		return value;
