@@ -26,8 +26,15 @@ public class Hand {
 		return hold;
 	}
 
-	public void printHand(){		
-		System.out.println("player's hand size: "+ this.hand.size());
+	public void setHand(List<Card> hand) {
+		this.hand = hand;
+	}
+
+	public void setHold(boolean[] hold) {
+		this.hold = hold;
+	}
+
+	public void printHand(){
 		System.out.print("player's hand : ");
 		for(int i=0;i<hold.length;i++)
 		{
@@ -45,6 +52,10 @@ public class Hand {
 				hand.remove(hold.length);
 			}
 		}
+	}
+	
+	public void updateHold(int setTrue){
+			hold[setTrue]=true;
 	}
 	
 	public void renewHand(List<Card> deck){

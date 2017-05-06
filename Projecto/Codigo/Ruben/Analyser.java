@@ -39,7 +39,7 @@ public class Analyser {
 		});	
 	}
 	
-	public boolean checkFlush()
+	private boolean checkFlush()
 	{
 		/* Need a new name for this variable */
 		/** This gets the first card's suit that is in the draw*/
@@ -54,7 +54,7 @@ public class Analyser {
 		return true;
 	}
 	
-	public boolean checkStraight()
+	private boolean checkStraight()
 	{
 		/* Need a new name for this variable */
 		/** This gets the first card's suit that is in the draw*/
@@ -72,7 +72,7 @@ public class Analyser {
 		return true;
 	}
 	
-	public boolean checkPair()
+	private boolean checkPair()
 	/** This method checks if there is at least a pair of Jacks or Higher */
 	{
 		/* Need a new name for this variable */
@@ -88,7 +88,7 @@ public class Analyser {
 		return false;
 	}
 	
-	public boolean checkHighPair()
+	private boolean checkHighPair()
 	/** This method checks if there is at least a pair of Jacks or Higher */
 	{
 		/* Need a new name for this variable */
@@ -104,7 +104,7 @@ public class Analyser {
 		return false;
 	}
 	
-	public boolean check2Pairs()
+	private boolean check2Pairs()
 	/** This method checks if there is at least a pair */
 	{
 		int numberOfPairs = 0;
@@ -128,7 +128,7 @@ public class Analyser {
 		return false;
 	}
 	
-	public boolean checkThree()
+	private boolean checkThree()
 	/** This method checks if there is at least a three of a kind */
 	{
 		int checkPair = 1;
@@ -152,7 +152,7 @@ public class Analyser {
 		return false;
 	}
 	
-	public boolean checkPoker()
+	private boolean checkPoker()
 	/** This method checks if we have a poker. 4 of a kind */
 	{
 		int checkTriplePair = 1;
@@ -239,6 +239,41 @@ public class Analyser {
 		
 		return analyseResult;
 		
+	}
+	
+	public String printHandResult (){
+		switch (getCheckerResult()) {
+        
+		case 0: /* High Pair */
+			return "Jacks or Better";
+        
+        case 1: /* 2 Pairs */
+        	return "Two Pair";
+        
+        case 2: /* Three of a Kind */
+        	return "Three of a Kind";
+        
+        case 3: /* Straight */
+        	return "Straight";
+        
+        case 4: /* Flush */
+        	return "Flush";
+        
+        case 5: /* Full House */
+        	return "Full House";
+        
+        case 6: /* Poker */
+        	return "Four of a Kind";
+        	
+        case 7: /* Straight Flush */
+        	return "Straight Flush";
+        
+        case 8: /* Royal Flush */
+        	return "Royal Flush";
+
+        default:
+        	return "Invalid Hand Result";
+		}
 	}
 	
 	public void printDraw()

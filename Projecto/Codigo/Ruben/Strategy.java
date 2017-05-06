@@ -5,13 +5,10 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Strategy {
-	private int handResult;
 	private List<Card> handUnsorted = new ArrayList<>();
 	private List<Card> handSorted = new ArrayList<>();
 	
-	public Strategy(int analyseResult, List<Card> hand){
-		
-		setHandResult(analyseResult);
+	public Strategy(List<Card> hand){
 		
 		for (int i=0; i < 5; i++){
 			this.handUnsorted.add(hand.get(i));
@@ -34,7 +31,7 @@ public class Strategy {
 		});	
 	}
 	
-	/* This method receives as parameter the  */
+	/* This method receives as parameter the sortedHold */
 	public boolean[] holdPositionCorrector()
 	{
 		boolean hold[] = new boolean[5];
@@ -82,10 +79,6 @@ public class Strategy {
 		
 		return sortedHold;
 	}
-	
-	public int getHandResult() {
-		return handResult;
-	}
 
 	public List<Card> getHandUnsorted() {
 		return handUnsorted;
@@ -93,10 +86,6 @@ public class Strategy {
 
 	public List<Card> getHandSorted() {
 		return handSorted;
-	}
-
-	public void setHandResult(int handResult) {
-		this.handResult = handResult;
 	}
 
 	public void setHandUnsorted(List<Card> handUnsorted) {
