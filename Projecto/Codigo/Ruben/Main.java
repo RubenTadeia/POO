@@ -88,5 +88,9 @@ public class Main {
 			System.out.println(newCard.getValue());
 		}*/
 		
+		String example = "-i 7000";
+		String[] hehe = example.split(" ");
+	
+		int adc = hehe.length;
 	}
 }

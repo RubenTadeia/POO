@@ -35,9 +35,9 @@ public class Strategy {
 	}
 	
 	/* This method receives as parameter the  */
-	public int[] holdPositionCorrector()
+	public boolean[] holdPositionCorrector()
 	{
-		int hold[] = new int[5];
+		boolean hold[] = new boolean[5];
 		
 		/* The difference between the hold and sortedHold
 		 * is that, the sortedHold contains the positions
@@ -62,7 +62,7 @@ public class Strategy {
 			    {
 			        if (card.equals(handUnsorted.get(j)))
 			        {
-			            hold[i] = j;
+			            hold[j] = true;
 			        }
 			    } 
 				
@@ -76,11 +76,11 @@ public class Strategy {
 	 * and store them in a integer vector
 	 * we can later update the hold vector in the Hand Class */
 	private int[] gatherIndexToHold(){
-		int hold[] = new int[5];
+		int sortedHold[] = new int[5];
 		
 		
 		
-		return hold;
+		return sortedHold;
 	}
 	
 	public int getHandResult() {

@@ -14,10 +14,6 @@ public class Hand {
 		for(int i=0;i<10;i++)
 		{
 		  	this.hand.add(deck.get(i));
-			if(i<5)
-			{
-				this.hold[i] = false;
-			}
 		}
 		
 	}
@@ -28,14 +24,6 @@ public class Hand {
 
 	public boolean[] getHold() {
 		return hold;
-	}
-
-	public void setHand(List<Card> hand) {
-		this.hand = hand;
-	}
-
-	public void setHold(boolean[] hold) {
-		this.hold = hold;
 	}
 
 	public void printHand(){		
@@ -56,17 +44,6 @@ public class Hand {
 				Collections.swap(hand, i, swapPoint);
 				hand.remove(hold.length);
 			}
-		}
-	}
-	
-	public void updateHold(int [] setTrue){
-		if(setTrue.length == 0)
-		{
-			return;
-		}
-		for(int i=0;i<setTrue.length;i++)
-		{
-			hold[setTrue[i]]=true;
 		}
 	}
 	
