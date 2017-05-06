@@ -24,10 +24,10 @@ public class Statistic {
 	public Statistic(int playerInitialCredit)
 	{
 		stats = new int[12];
-		
 		for (int i = 0; i < 12 ; i++){
 			stats[i] = 0;
 		}
+		
 		this.initialCredit = playerInitialCredit;
 		this.setGainPercentage(0);
 	}
@@ -40,83 +40,50 @@ public class Statistic {
 		this.setGainPercentage((playerActualCredit / initialCredit )*100);
 	}
 	
+	public String fixedLength(String str, int length){
+        return String.format("%1$"+length+"s", str).replace(' ', '-');
+	}
+	
+	public String fixedLengthString(String str, int length){
+        return String.format("%1$"+length+"s", str);
+	}
+	
 	public void printStats()
 	{
-		int lenght = getLenght();
-		/* First Column of Results */
-		System.out.print("+---------------------+");
-		System.out.println("----------------------+");
-		System.out.print("|         Hand        |");
-		System.out.println("          Nb          |");
-		System.out.print("----------------------+");
-		System.out.println("----------------------+");
-		System.out.print("|   Jacks Or Better   |");
-		System.out.println("          "+stats[0]+"           |");
-		System.out.print("|   Two Pair          |");
-		System.out.println("                      |");
-		System.out.print("|   Three of a Kind   |");
-		System.out.println("                      |");
-		System.out.print("|   Straight          |");
-		System.out.println("                      |");
-		System.out.print("|   Flush             |");
-		System.out.println("                      |");
-		System.out.print("|   Full House        |");
-		System.out.println("                      |");
-		System.out.print("|   Four of a Kind    |");
-		System.out.println("                      |");
-		System.out.print("|   Straigh Flush     |");
-		System.out.println("                      |");
-		System.out.print("|   Royal Flush       |");
-		System.out.println("                      |");
-		System.out.print("|   Other             |");
-		System.out.println("                      |");
-		System.out.print("----------------------+");
-		System.out.println("----------------------+");
-		System.out.print("|   Total             |");
-		System.out.println("                      |");
-		System.out.print("----------------------+");
-		System.out.println("----------------------+");
-		System.out.print("|   Credit            |");
-		System.out.println("                      |");
-		System.out.print("----------------------+");
-		System.out.println("----------------------+");	
-	}
+		int maxLength = String.valueOf(this.initialCredit).length()+String.valueOf(this.gainPercentage).length()+4;
 	
-	/* Lenght Of the Table 
-	 * Hardcoded TODO */
-	public int getLenght(){ 
-		int lenght = 0;
-		int auxiliar;
-		for (int i = 0; i < 12 ; i++){
-			auxiliar = String.valueOf(this.stats[i]).length();
-			if (lenght < auxiliar)
-			{
-				lenght = auxiliar;
-			}
-		}
+		if(String.valueOf(stats[10]).length()>maxLength)
+			maxLength=10;
 		
-		if (lenght < String.valueOf(this.initialCredit).length())
-		{
-			lenght = String.valueOf(this.initialCredit).length();
-		}
-		if (lenght < String.valueOf(this.gainPercentage).length())
-		{
-			lenght = String.valueOf(this.gainPercentage).length();
-		}
+		int[] length = new int[11];
 		
-		System.out.println("here " + lenght);
+		for(int i=0; i<11; i++)
+			length[i] = String.valueOf(stats[i]).length();
+			
+		String[] str = new String[16];
+		str[0] = "Hand              |"+fixedLengthString("",(maxLength/2)-1)+"Nb";
+		str[1] = "------------------+";
+		str[2] = "Jacks or Better   |"+fixedLengthString("",maxLength/2-length[0]/2)+stats[0];
+		str[3] = "Two Pair          |"+fixedLengthString("",maxLength/2-length[1]/2)+stats[1];
+		str[4] = "Three of a Kind   |"+fixedLengthString("",maxLength/2-length[2]/2)+stats[2];
+		str[5] = "Straight          |"+fixedLengthString("",maxLength/2-length[3]/2)+stats[3];
+		str[6] = "Flush             |"+fixedLengthString("",maxLength/2-length[4]/2)+stats[4];
+		str[7] = "Full House        |"+fixedLengthString("",maxLength/2-length[5]/2)+stats[5];
+		str[8] = "Four of a Kind    |"+fixedLengthString("",maxLength/2-length[6]/2)+stats[6];
+		str[9] = "Stright Flush     |"+fixedLengthString("",maxLength/2-length[7]/2)+stats[7];
+		str[10] = "Royal Flush       |"+fixedLengthString("",maxLength/2-length[8]/2)+stats[8];
+		str[11] = "Other             |"+fixedLengthString("",maxLength/2-length[9]/2)+stats[9];
+		str[13] = "Total             |"+fixedLengthString("",maxLength/2-length[10]/2)+stats[10];
+		str[15] = "Credit            | "+this.initialCredit+" ("+this.gainPercentage+"%)";
 		
-		return lenght;
+		/* This print in maxLength +1*/
+		str[1]=str[1]+fixedLength("",maxLength+1);
+		str[12]=str[1];
+		str[14]=str[1];
+		for(int i=0; i<16; i++){
+			System.out.println(str[i]);
+		}
 	}
-	
-	public static String padRight(String s, int n) {
-	     return String.format("%1$-" + n + "s", s);  
-	}
-
-	public static String padLeft(String s, int n) {
-	    return String.format("%1$" + n + "s", s);  
-	}
-
 	
 	public float getGainPercentage() {
 		return gainPercentage;

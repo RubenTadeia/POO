@@ -80,5 +80,13 @@ public class Main {
 		Statistic stats = new Statistic(1500);
 		
 		stats.printStats();
+		
+		/*Strategy strategy = new Strategy(reward, hand.getHand());
+		
+		for (Card newCard : strategy.getHandUnsorted())
+		{
+			System.out.println(newCard.getValue());
+		}*/
+		
 	}
 }
