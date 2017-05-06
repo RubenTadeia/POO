@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Deck {
 	private List<Card> deck = new ArrayList<>();
-	int mode;
+	
 	public Deck(){
 		/** For a default Deck with 52 Cards */
 		
@@ -27,7 +27,7 @@ public class Deck {
 	}
 	
 	public Deck(ArrayList<String> cardsVector){
-		/** For a deck considering that a file is provided */
+		/* For a deck considering that a file is provided */
 		for(String s: cardsVector){
 			Card card = new Card(s);
 			deck.add(card);
@@ -39,21 +39,8 @@ public class Deck {
 	}
 
 	public Card getOneCard(int indexOfCards) {
-		return deck.get(indexOfCards);
-	}
-	
-	public Card getOneCard(String c) {
-		if(deck.get(0)== null){
-			System.out.println("No more cards ");
-			return null;
-		}
 		
-		String suits,rank;
-		suits = deck.get(0).getSuit();
-		rank = deck.get(0).getRank();
-		Card ret = new Card(rank+suits);
-		deck.remove(0);
-		return ret;
+		return deck.get(indexOfCards);
 	}
 	
 	public void setDeck(List<Card> deck) {
@@ -62,13 +49,5 @@ public class Deck {
 	
 	public void shuffle(){
 		Collections.shuffle(this.deck);
-	}
-
-	public int getMode() {
-		return mode;
-	}
-
-	public void setMode(int mode) {
-		this.mode = mode;
 	}
 }
