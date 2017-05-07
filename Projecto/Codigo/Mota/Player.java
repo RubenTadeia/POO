@@ -1,4 +1,4 @@
-package VideoPoker;
+package videoPoker;
 
 public class Player {
 	private int credits;

@@ -1,4 +1,4 @@
-package VideoPoker;
+package videoPoker;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,6 +16,15 @@ public class Analyser {
 		for (int i=0; i < 5; i++){
 			this.draw.add(hand.get(i));
 		}
+		sorting();
+	}
+	
+	public void updateDraw (List<Card> hand){
+		draw.clear();
+		for (int i=0; i < 5; i++){
+			this.draw.add(hand.get(i));
+		}
+		sorting();
 	}
 	
 	public List<Card> getDraw() {
@@ -241,7 +250,7 @@ public class Analyser {
 		
 	}
 	
-	public String printHandResult (){
+	public String printHandResult(){
 		switch (getCheckerResult()) {
         
 		case 0: /* High Pair */
@@ -271,6 +280,9 @@ public class Analyser {
         case 8: /* Royal Flush */
         	return "Royal Flush";
 
+        case 9: /* Other */
+        	return "Other";
+        	
         default:
         	return "Invalid Hand Result";
 		}

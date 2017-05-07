@@ -1,4 +1,4 @@
-package VideoPoker;
+package videoPoker;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

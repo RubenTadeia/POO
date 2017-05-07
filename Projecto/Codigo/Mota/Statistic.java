@@ -1,4 +1,4 @@
-package VideoPoker;
+package videoPoker;
 
 public class Statistic {
 	private int[] stats;
@@ -24,20 +24,9 @@ public class Statistic {
 	public Statistic(int playerInitialCredit)
 	{
 		stats = new int[12];
-		/*for (int i = 0; i < 12 ; i++){
+		for (int i = 0; i < 12 ; i++){
 			stats[i] = 0;
-		}*/
-		stats[0] = 7789;
-		stats[1] = 98494;
-		stats[2] = 6252;
-		stats[3] = 24;
-		stats[4] = 92762;
-		stats[5] = 6263;
-		stats[6] = 2;
-		stats[7] = 626;
-		stats[8] = 68446;
-		stats[9] = 9263;
-		stats[10] = 9556625;
+		}
 		
 		this.initialCredit = playerInitialCredit;
 		this.setGainPercentage(0);
@@ -70,7 +59,7 @@ public class Statistic {
 		
 		for(int i=0; i<11; i++)
 			length[i] = String.valueOf(stats[i]).length();
-		
+			
 		String[] str = new String[16];
 		str[0] = "Hand              |"+fixedLengthString("",(maxLength/2)-1)+"Nb";
 		str[1] = "------------------+";
@@ -84,29 +73,17 @@ public class Statistic {
 		str[9] = "Stright Flush     |"+fixedLengthString("",maxLength/2-length[7]/2)+stats[7];
 		str[10] = "Royal Flush       |"+fixedLengthString("",maxLength/2-length[8]/2)+stats[8];
 		str[11] = "Other             |"+fixedLengthString("",maxLength/2-length[9]/2)+stats[9];
-		str[12] = "------------------+";
 		str[13] = "Total             |"+fixedLengthString("",maxLength/2-length[10]/2)+stats[10];
-		str[14] = "------------------+";
-		str[15] = "Credit            |"+this.initialCredit+" ("+this.gainPercentage+"%)";
+		str[15] = "Credit            | "+this.initialCredit+" ("+this.gainPercentage+"%)";
 		
-		str[1]=str[1]+fixedLength("",maxLength);
+		/* This print in maxLength +1*/
+		str[1]=str[1]+fixedLength("",maxLength+1);
 		str[12]=str[1];
 		str[14]=str[1];
 		for(int i=0; i<16; i++){
 			System.out.println(str[i]);
 		}
 	}
-	
-	
-	
-	public static String padRight(String s, int n) {
-	     return String.format("%1$-" + n + "s", s);  
-	}
-
-	public static String padLeft(String s, int n) {
-	    return String.format("%1$" + n + "s", s);  
-	}
-
 	
 	public float getGainPercentage() {
 		return gainPercentage;

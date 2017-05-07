@@ -1,4 +1,6 @@
-package VideoPoker;
+package videoPoker;
+
+import videoPoker.Player;
 
 public class Debug extends Player{
 

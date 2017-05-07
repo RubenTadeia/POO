@@ -1,4 +1,4 @@
-package VideoPoker;
+package videoPoker;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,8 +48,7 @@ public class Hand {
 		for(int i=0;i<hold.length;i++)
 		{
 			if(this.hold[i]==false){
-				Collections.swap(hand, i, swapPoint);
-				hand.remove(hold.length);
+				Collections.swap(hand, i, i+5);
 			}
 		}
 	}

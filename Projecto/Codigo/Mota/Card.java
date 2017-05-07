@@ -1,4 +1,4 @@
-package VideoPoker;
+package videoPoker;
 
 public class Card {
 	private String rank;
@@ -7,6 +7,7 @@ public class Card {
 	
 	public Card(String card){
 		
+		/* TODO - Throw exceptions */
 		if (card.substring(1).equals("H") || card.substring(1).equals("S") ||
 				card.substring(1).equals("D") || card.substring(1).equals("C"))
 		{
