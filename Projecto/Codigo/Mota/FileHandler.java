@@ -10,7 +10,8 @@ public class FileHandler {
 
 	private int cardsNumber;
 	private ArrayList<String> cardsVector;
-	
+	private ArrayList<String> cmdVector; 
+
 	public FileHandler(String inputFile){
 		String cardsLine = "";
 		cardsVector = new ArrayList<String>();
@@ -40,12 +41,45 @@ public class FileHandler {
 		}
 	}
 	
-	public int getCardsNumber() {
-		return cardsNumber;
+	public ArrayList<String> getCmdVector() {
+		return cmdVector;
 	}
 
-	public void setCardsNumber(int cardsNumber) {
-		this.cardsNumber = cardsNumber;
+	public void setCmdVector(ArrayList<String> cmdVector, String cmd) {
+		String cmdLine = "";
+		cmdVector = new ArrayList<String>();
+		
+		try (BufferedReader br = new BufferedReader(new FileReader(SetPathName(cmd)))) {
+			   String line = null;
+			   while ((line = br.readLine()) != null) {
+				   /* We do the split with the space to remove enters*/
+				   cmdLine = cmdLine.concat(line + " ");
+			   }
+			   
+			   String[] cmdWithSpaces = cmdLine.split("\\W+");
+			   
+			   for (String content : cmdWithSpaces){
+				   this.cmdVector.add(content);
+			   }		   
+		} 
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	public String SetPathName(String c){
+		String reg = "./src/videoPoker/"+c;
+		return reg;		
+	}
+	
+	public int getCardsNumber() {
+		return cardsNumber;
 	}
 
 	public ArrayList<String> getCardsVector() {
@@ -63,4 +97,5 @@ public class FileHandler {
 			System.out.println(line);
 	    }
 	}
+	
 }

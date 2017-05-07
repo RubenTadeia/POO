@@ -3,6 +3,7 @@ package videoPoker;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import videoPoker.Analyser;
 
@@ -213,7 +214,7 @@ public class Main {
 				}
 			}
 		break;
-			
+			/**	* * * * * * * * * * * * * * * ** * * * * * * * * *	*/
 		case "-d": /** Debug mode */
 			if(argc==4){
 				try{
@@ -224,6 +225,25 @@ public class Main {
 					System.out.println("Credits need to be a number");
 					System.exit(-2);
 				}//ELSE EXCEPTION
+			String cmd_file = args[2];
+			
+			FileHandler file = new FileHandler(args[3]); /** Deck file*/
+			Deck deck = new Deck(file.getCardsVector());
+			ArrayList<String> cmdVector = file.getCmdVector();
+			int cmd = 0;
+			//While there's cards and commands to execute
+			while(deck.getSize()>=10 && cmdVector.get(cmd)!=null){
+				//Bet
+				//Update Hand
+				//Hold
+				//UpdateHand
+				//Stats
+				
+				cmd++;
+			}
+			
+			
+			
 			}
 		break;
 		

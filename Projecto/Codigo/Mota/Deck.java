@@ -43,11 +43,20 @@ public class Deck {
 		return deck.get(indexOfCards);
 	}
 	
+public Card debugGetOneCard(int indexOfCards) {
+		Card ret = new Card(deck.get(indexOfCards).getRank() + deck.get(indexOfCards).getSuit());
+		deck.remove(indexOfCards);
+		return ret;
+	}
+	
 	public void setDeck(List<Card> deck) {
 		this.deck = deck;
 	}
 	
 	public void shuffle(){
 		Collections.shuffle(this.deck);
+	}
+	public int getSize(){
+		return deck.size();
 	}
 }
