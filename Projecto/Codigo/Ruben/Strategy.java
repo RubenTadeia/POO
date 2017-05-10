@@ -7,8 +7,14 @@ import java.util.List;
 public class Strategy {
 	private List<Card> handUnsorted = new ArrayList<>();
 	private List<Card> handSorted = new ArrayList<>();
+	private List<Integer> indicesToHold = new ArrayList<Integer>();
+	private int analyserResult;
 	
-	public Strategy(List<Card> hand){
+	public Strategy(List<Card> hand, int handResult){
+		
+		/** This integer comes from the function
+		 *  getCheckerResult in the Analyser class */
+		this.analyserResult = handResult;
 		
 		for (int i=0; i < 5; i++){
 			this.handUnsorted.add(hand.get(i));
@@ -32,9 +38,9 @@ public class Strategy {
 	}
 	
 	/* This method receives as parameter the sortedHold */
-	public boolean[] holdPositionCorrector()
+	/*public void holdPositionCorrector()
 	{
-		boolean hold[] = new boolean[5];
+		this.indecesToHold.clear(); */
 		
 		/* The difference between the hold and sortedHold
 		 * is that, the sortedHold contains the positions
@@ -42,32 +48,30 @@ public class Strategy {
 		 * considers that the cards are sorted in the Hand.
 		 * The hold[] vector corrects the positions of the
 		 * previous vector */
-		int sortedHold[] = new int[5];
+			//sortedHold = gatherIndexToHold();
 		
-		sortedHold = gatherIndexToHold();
-		
-		for (int i = 0; i < 5 ; i++)
-		{
+		//for (int i = 0; i < 5 ; i++)
+		//{
 			/* Enters here if sorted hold still
 			 * has values of cards to hold */
-			if (sortedHold[i] != 0){
-				Card card = handSorted.get(sortedHold[i]);
+		//	if (sortedHold[i] != 0){
+		//		Card card = handSorted.get(sortedHold[i]);
 				/** Now we will search for this
 				 *  card in the unsorted hand */
 				
-				for (int j = 0; j < 5; j++)
+	/*			for (int j = 0; j < 5; j++)
 			    {
 			        if (card.equals(handUnsorted.get(j)))
 			        {
 			            hold[j] = true;
 			        }
 			    } 
-				
+				handUnsorted.
 			}
 		}
 		
 		return hold;
-	}
+	}*/
 	
 	/* This method will gather the indices
 	 * and store them in a integer vector
@@ -75,7 +79,10 @@ public class Strategy {
 	private int[] gatherIndexToHold(){
 		int sortedHold[] = new int[5];
 		
-		
+		/** Case 1. Straight, four of a kind, royal flush */
+		if (analyserResult == 8){
+			
+		}
 		
 		return sortedHold;
 	}

@@ -54,8 +54,9 @@ public class Hand {
 		}
 	}
 	
-	public void updateHold(int setTrue){
-			hold[setTrue]=true;
+	public void updateHold(int[] setTrue){
+		for (int i = 0 ; i < setTrue.length ; i++)
+			hold[i]=true;
 	}
 	
 	public void renewHand(List<Card> deck){

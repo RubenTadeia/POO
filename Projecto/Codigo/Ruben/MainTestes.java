@@ -13,24 +13,6 @@ public class MainTestes {
 		
 		Hand hand = new Hand(deck.getDeck());
 		
-		System.out.println("Hand Bellow");
-		hand.printHand();
-		
 		Analyser analyser = new Analyser(hand.getHand());
-		analyser.sorting();
-		
-		System.out.println("Analyser Bellow");
-		analyser.printDraw();
-		
-		
-		hand.updateHand();
-		System.out.println("Hand Bellow");
-		hand.printHand();
-		analyser.updateDraw(hand.getHand());
-		System.out.println("Analyser Bellow");
-		analyser.printDraw();
-		
-		System.out.println("Checker Result "+ analyser.getCheckerResult());
-		System.out.println("Hand Result "+ analyser.printHandResult());
 	}		
 }
