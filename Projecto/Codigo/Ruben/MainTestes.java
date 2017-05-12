@@ -14,5 +14,9 @@ public class MainTestes {
 		Hand hand = new Hand(deck.getDeck());
 		
 		Analyser analyser = new Analyser(hand.getHand());
+		
+		Strategy strategy = new Strategy(hand.getHand(),analyser.getCheckerResult());
+		
+		
 	}		
 }
