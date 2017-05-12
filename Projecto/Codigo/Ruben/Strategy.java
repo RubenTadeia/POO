@@ -37,69 +37,71 @@ public class Strategy {
 		});	
 	}
 	
-	/* This method receives as parameter the sortedHold */
-	/*public void holdPositionCorrector()
+	public void holdPositionCorrector()
 	{
-		this.indecesToHold.clear(); */
+		gatherIndexToHold();
 		
-		/* The difference between the hold and sortedHold
-		 * is that, the sortedHold contains the positions
-		 * of the cards to change in he class Hand, but it
-		 * considers that the cards are sorted in the Hand.
-		 * The hold[] vector corrects the positions of the
-		 * previous vector */
-			//sortedHold = gatherIndexToHold();
-		
-		//for (int i = 0; i < 5 ; i++)
-		//{
-			/* Enters here if sorted hold still
-			 * has values of cards to hold */
-		//	if (sortedHold[i] != 0){
-		//		Card card = handSorted.get(sortedHold[i]);
-				/** Now we will search for this
-				 *  card in the unsorted hand */
-				
-	/*			for (int j = 0; j < 5; j++)
-			    {
-			        if (card.equals(handUnsorted.get(j)))
-			        {
-			            hold[j] = true;
-			        }
-			    } 
-				handUnsorted.
-			}
+		for(int i = 0; i < this.indicesToHold.size(); i++){
+			handSorted.get(indicesToHold.get(i));
+			// matching between hands
+			
 		}
-		
-		return hold;
-	}*/
+	}
 	
 	/* This method will gather the indices
 	 * and store them in a integer vector
 	 * we can later update the hold vector in the Hand Class */
-	private int[] gatherIndexToHold(){
-		int sortedHold[] = new int[5];
+	private void gatherIndexToHold(){
 		
-		/** Case 1. Straight, four of a kind, royal flush */
-		if (analyserResult == 8){
-			
+		this.indicesToHold.clear();
+		
+		/** Case 1 - Straight Flush, four of a kind, royal Flush*/
+		if (analyserResult == 8){ /* Royal flush */
+			holdAll();
+			return;
+		}
+		else if (analyserResult == 7){ /* Straight Flush */
+			holdAll();
+			return;
+		}
+		else if (analyserResult == 6){ /* Poker */
+			if(handSorted.get(0).getValue() == handSorted.get(1).getValue()){
+				for(int i = 0; i < 4; i++){
+					this.indicesToHold.add(i);
+				}
+			}
+			else{
+				for(int i = 1; i < 5; i++){
+					this.indicesToHold.add(i);
+				}
+			}
+			return;
 		}
 		
-		return sortedHold;
+		/** Case 2 - 4 to a royal Flush */
+		
+		
 	}
-
+	
+	private void holdAll(){
+		for(int i = 0; i < 5; i++){
+			this.indicesToHold.add(i);
+		}
+	}
+	
 	public List<Card> getHandUnsorted() {
 		return handUnsorted;
 	}
 
+	public List<Integer> getIndicesToHold() {
+		return indicesToHold;
+	}
+
+	public int getAnalyserResult() {
+		return analyserResult;
+	}
+
 	public List<Card> getHandSorted() {
 		return handSorted;
-	}
-
-	public void setHandUnsorted(List<Card> handUnsorted) {
-		this.handUnsorted = handUnsorted;
-	}
-
-	public void setHandSorted(List<Card> handSorted) {
-		this.handSorted = handSorted;
 	}
 }
