@@ -214,7 +214,13 @@ public class Main {
 				}
 			}
 		break;
-			/**	* * * * * * * * * * * * * * * ** * * * * * * * * *	*/
+			
+		
+		
+		
+		
+		
+		/**	* * * * * * * * * * * * * * * ** * * * * * * * * *	*/
 		case "-d": /** Debug mode */
 			if(argc==4){
 				try{
@@ -225,26 +231,191 @@ public class Main {
 					System.out.println("Credits need to be a number");
 					System.exit(-2);
 				}//ELSE EXCEPTION
-			String cmd_file = args[2];
 			
-			FileHandler file = new FileHandler(args[3]); /** Deck file*/
+			String cardFile = "./src/videoPoker/"+args[3];
+			String cmdFile = args[2];
+			FileHandler file = new FileHandler(cardFile); 
 			Deck deck = new Deck(file.getCardsVector());
-			ArrayList<String> cmdVector = file.getCmdVector();
-			int cmd = 0;
+			file.setCmdVector(cmdFile);
+			ArrayList<String>cmdVector = file.getCmdVector();
+			Player player = new Player(playerCredits);
+			Hand hand = new Hand(deck.getDeck());
+			Statistic stats = new Statistic(player.getCredits());
+			int stateMachine = 0,  reward=0;
+			String handResult,	input;;
+			Analyser analyser = new Analyser(hand.getHand());
+			Prizes prizes = new Prizes();
+			
 			//While there's cards and commands to execute
-			while(deck.getSize()>=10 && cmdVector.get(cmd)!=null){
-				//Bet
-				//Update Hand
-				//Hold
-				//UpdateHand
-				//Stats
+			for(int i=0;i<cmdVector.size();i++){
 				
-				cmd++;
+				if(deck.getSize()<10){
+					System.out.println("STOP YOU PLAYED THEM ALL YOU MONSTER -Cards");
+					System.exit(-69);
+				}	
+
+				
+				System.out.println("--------------------"+cmdVector.get(i)+"------------------");
+				if (cmdVector.get(i).equals("s"))
+				{ /** We ask if the input is 1 to ensure that
+				      the user don't put more arguments than what
+				      is supposed */
+					//input = file.getCmdVector();
+					String[] inputArgs = cmdVector.get(i).split(" ");
+					if (inputArgs[0].length() != 1){
+						System.out.println("$ : illegal expression");
+						continue;
+					}
+					else{
+						stats.printStats();
+					}
+				}
+				else if (cmdVector.get(i).equals("$"))
+				{
+					String[] inputArgs = cmdVector.get(i).split(" ");
+					if (inputArgs[0].length() != 1){
+						System.out.println("$ : illegal expression");
+						continue;
+					}
+					else{
+						player.printCredits();
+					}
+				}
+				else if (cmdVector.get(i).equals("b"))
+				{
+					String[] inputArgs = cmdVector.get(i).split(" ");
+					if (inputArgs[0].length() != 1){
+						System.out.println("b : illegal expression");
+						continue;
+					}
+					try{
+							if (inputArgs.length>1 && inputArgs[0].length() == 1){
+								bet = Integer.parseInt(inputArgs[1]);
+								
+							}
+						//Catches all NumberFormatExceptions but not other errors
+						} catch(NumberFormatException e) {
+						//Handle error here
+							System.out.println("Invalid bet value!");
+						}
+					
+					if (stateMachine >= 1){
+						System.out.println("You already made a bet!");
+						continue;
+					}
+					if (bet <= 5 && bet >= 1 && stateMachine == 0)
+					{
+						player.bet(bet);
+						System.out.println("player is betting "+ bet);
+						stateMachine++;
+					}
+					else{
+						System.out.println("b : illegal amount");
+					}
+				}
+				else if (cmdVector.get(i).equals("a"))
+				{
+					if(stateMachine == 2)
+					{
+						String[] inputArgs = cmdVector.get(i).split(" ");
+						if (inputArgs[0].length() != 1){
+							System.out.println("s : illegal expression");
+							continue;
+						}
+						else{
+							//strategy.printAdvice();
+						}
+					}
+					else{
+						System.out.println("Cannot tell you advices if you don't make any deal!");
+					}
+					
+				}
+				else if (cmdVector.get(i).equals("d"))
+				{
+					if(stateMachine == 1)
+					{
+						String[] inputArgs = cmdVector.get(i).split(" ");
+						if (inputArgs[0].length() != 1){
+							System.out.println("d : illegal expression");
+							continue;
+						}
+						else{
+							hand.printHand();
+							stateMachine++;
+							continue;
+						}
+					}
+					if (stateMachine == 2){
+						System.out.println("You already made a deal!");
+					}
+					else{
+						System.out.println("Cannot make a deal without making a bet!");
+					}
+					
+				}
+				else if (cmdVector.get(i).equals("h"))
+				{
+					if(stateMachine == 2)
+					{
+						String[] inputArgs = cmdVector.get(i).split(" ");
+						if(inputArgs.length > 1){
+							for (int holdIterator = 1; holdIterator < inputArgs.length;holdIterator++)
+							{
+								int holdingPosition = Integer.parseInt(inputArgs[holdIterator]);
+								if(holdingPosition >= 1 && holdingPosition <= 5){
+									hand.updateHold(holdingPosition-1);
+								}else{
+									System.out.println("Please enter a correct value between 1 to 5 to hold");
+								}
+							}	
+						}
+						hand.updateHand();
+						analyser.updateDraw(hand.getHand());
+						deck.updateRemoveDeck();
+						
+						/** Gives the reward to the player*/
+						reward = prizes.getRewardValue(bet, analyser.getCheckerResult(), analyser.getDraw());
+						player.rewards(reward);
+						hand.printHand();
+					//	analyser.printDraw();
+						if (reward == 0)
+						{
+							System.out.println("player loses and his credit is "+ player.getCredits());
+						}
+						else {
+							handResult = analyser.printHandResult();
+							System.out.println("player wins with "+ handResult + " and his credit is "+ player.getCredits());
+						}
+						
+						//deck.shuffle(); Não há shuffle em debug
+						hand.renewHand(deck.getDeck());
+						stateMachine = 0;
+					}
+					else{
+						System.out.println("Cannot make hold anything without making a deal!");
+					}
+				} 
+				else if (cmdVector.get(i).equals("q") && cmdVector.get(i).length() == 1) //ESTE========input.length() == 1 
+				{
+					System.out.println("Final Stats"); System.out.println("");
+					stats.printStats();
+					
+					System.out.println("Thank you come again!");
+					System.exit(1);
+				}
+				else
+				{
+					//throw exception
+					System.out.printf(("Wrong command...\n\nYou can only use this commands:" +
+					"\n$ = For Player's Credits" + "\nb = To make a bet\nd = To make a deal" +
+					"\nh = To make a hold\na = To make a advice\ns = To see the statistics\n"));
+				}	
+				
+				
+				}			
 			}
-			
-			
-			
-			}
+			System.out.println("Missing debug arguments: ");
 		break;
 		
 		case "-s":

@@ -45,7 +45,7 @@ public class FileHandler {
 		return cmdVector;
 	}
 
-	public void setCmdVector(ArrayList<String> cmdVector, String cmd) {
+	public void setCmdVector(String cmd) {
 		String cmdLine = "";
 		cmdVector = new ArrayList<String>();
 		
@@ -56,7 +56,8 @@ public class FileHandler {
 				   cmdLine = cmdLine.concat(line + " ");
 			   }
 			   
-			   String[] cmdWithSpaces = cmdLine.split("\\W+");
+//			   String[] cmdWithSpaces = cmdLine.split("\\W++");
+			   String[] cmdWithSpaces = cmdLine.split("\\s+");
 			   
 			   for (String content : cmdWithSpaces){
 				   this.cmdVector.add(content);

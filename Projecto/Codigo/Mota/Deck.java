@@ -43,12 +43,6 @@ public class Deck {
 		return deck.get(indexOfCards);
 	}
 	
-public Card debugGetOneCard(int indexOfCards) {
-		Card ret = new Card(deck.get(indexOfCards).getRank() + deck.get(indexOfCards).getSuit());
-		deck.remove(indexOfCards);
-		return ret;
-	}
-	
 	public void setDeck(List<Card> deck) {
 		this.deck = deck;
 	}
@@ -56,7 +50,16 @@ public Card debugGetOneCard(int indexOfCards) {
 	public void shuffle(){
 		Collections.shuffle(this.deck);
 	}
+	
 	public int getSize(){
 		return deck.size();
 	}
+	public boolean updateRemoveDeck(){
+		if(this.deck.size()<10) return false;
+		for(int i=0;i<10;i++){
+			deck.remove(i);
+		}
+		return true;
+	}
+	
 }
