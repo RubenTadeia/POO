@@ -9,7 +9,11 @@ public class Hand {
 	private boolean[] hold;
 	
 	public Hand(List<Card> deck)
-	{
+	{ 
+		if (deck.size()<10){
+			System.out.println("Not enough cards to play");
+			System.exit(-5);
+			} 
 		this.hold = new boolean[5];
 		for(int i=0;i<10;i++)
 		{
@@ -58,12 +62,12 @@ public class Hand {
 	}
 	
 	public void renewHand(List<Card> deck){
-		for(int i=0;i<hold.length;i++)
-		{
-			// There are 2 ways of playing  
-			// if(mode==1)
-			 hand.set(i, deck.get(hand.size()+i));
+		
+		for(int i=0;i<hand.size();i++)
+		{	
+			hand.set(i, deck.get(i));
 			//else hand.set(i, deck.getOneCard(c));
+		
 			if(i<hand.size()/2)
 			{
 				hold[i]=false;

@@ -214,13 +214,28 @@ public class Main {
 				}
 			}
 		break;
+		
+		case "-g":
+			if(argc>1){
+				System.out.println("too many arguments...");
+				System.exit(-3);
+			}
+			else{
+			//	Gui graphic = new Gui();
+				//graphic.askCredits();
+				
+				//graphic.startGraphic();
+				
+			}
+			break;
 			
-		
-		
-		
-		
-		
-		/**	* * * * * * * * * * * * * * * ** * * * * * * * * *	*/
+			/**	
+			 * Debug accompany 
+			 * 
+			 * 
+			 * 
+			 * 	*/
+			
 		case "-d": /** Debug mode */
 			if(argc==4){
 				try{
@@ -232,7 +247,7 @@ public class Main {
 					System.exit(-2);
 				}//ELSE EXCEPTION
 			
-			String cardFile = "./src/videoPoker/"+args[3];
+			String cardFile = "./src/videoPoker/"+args[3]+".txt";
 			String cmdFile = args[2];
 			FileHandler file = new FileHandler(cardFile); 
 			Deck deck = new Deck(file.getCardsVector());
@@ -242,27 +257,25 @@ public class Main {
 			Hand hand = new Hand(deck.getDeck());
 			Statistic stats = new Statistic(player.getCredits());
 			int stateMachine = 0,  reward=0;
-			String handResult,	input;;
+			String handResult;
 			Analyser analyser = new Analyser(hand.getHand());
 			Prizes prizes = new Prizes();
 			
 			//While there's cards and commands to execute
 			for(int i=0;i<cmdVector.size();i++){
-				
+				System.out.println("LER "+ cmdVector.get(i));
+				System.out.println("Seguinte "+ cmdVector.get(i+1));
 				if(deck.getSize()<10){
-					System.out.println("STOP YOU PLAYED THEM ALL YOU MONSTER -Cards");
-					System.exit(-69);
+					System.out.println("No more cards to play");
+					System.exit(-4);
 				}	
 
-				
-				System.out.println("--------------------"+cmdVector.get(i)+"------------------");
 				if (cmdVector.get(i).equals("s"))
 				{ /** We ask if the input is 1 to ensure that
-				      the user don't put more arguments than what
+				      the user doesn't put more arguments than what
 				      is supposed */
 					//input = file.getCmdVector();
-					String[] inputArgs = cmdVector.get(i).split(" ");
-					if (inputArgs[0].length() != 1){
+					if (cmdVector.get(i).length() != 1){
 						System.out.println("$ : illegal expression");
 						continue;
 					}
@@ -272,8 +285,8 @@ public class Main {
 				}
 				else if (cmdVector.get(i).equals("$"))
 				{
-					String[] inputArgs = cmdVector.get(i).split(" ");
-					if (inputArgs[0].length() != 1){
+					
+					if (cmdVector.get(i).length() != 1){
 						System.out.println("$ : illegal expression");
 						continue;
 					}
@@ -283,21 +296,26 @@ public class Main {
 				}
 				else if (cmdVector.get(i).equals("b"))
 				{
-					String[] inputArgs = cmdVector.get(i).split(" ");
-					if (inputArgs[0].length() != 1){
-						System.out.println("b : illegal expression");
-						continue;
-					}
-					try{
-							if (inputArgs.length>1 && inputArgs[0].length() == 1){
-								bet = Integer.parseInt(inputArgs[1]);
-								
-							}
-						//Catches all NumberFormatExceptions but not other errors
-						} catch(NumberFormatException e) {
-						//Handle error here
-							System.out.println("Invalid bet value!");
+					//String[] inputArgs = cmdVector.get(i).split(" ");
+					//for(String l : inputArgs)
+					//	System.out.println("OLLLLLLA"+l);
+					//if (inputArgs[0].length() != 1){
+					//	System.out.println("b : illegal expression");
+					//	continue;
+					//}
+					
+					int k = -2;
+					System.out.println("Estou lendo "+ cmdVector.get(i+1));
+					if(i<cmdVector.size()-1){
+						try{
+							k = Integer.parseInt(cmdVector.get(i+1));
+						}catch(NumberFormatException e){
+							
 						}
+						if(cmdVector.get(i+1).length()==1 &&	k>0 && k<6){
+							bet = k;
+						}
+					}
 					
 					if (stateMachine >= 1){
 						System.out.println("You already made a bet!");
@@ -335,8 +353,7 @@ public class Main {
 				{
 					if(stateMachine == 1)
 					{
-						String[] inputArgs = cmdVector.get(i).split(" ");
-						if (inputArgs[0].length() != 1){
+						if (cmdVector.get(i).length() != 1){
 							System.out.println("d : illegal expression");
 							continue;
 						}
@@ -355,30 +372,39 @@ public class Main {
 					
 				}
 				else if (cmdVector.get(i).equals("h"))
-				{
-					if(stateMachine == 2)
+				{ 
+					if(stateMachine == 2 && i<cmdVector.size()-1)
 					{
-						String[] inputArgs = cmdVector.get(i).split(" ");
-						if(inputArgs.length > 1){
-							for (int holdIterator = 1; holdIterator < inputArgs.length;holdIterator++)
-							{
-								int holdingPosition = Integer.parseInt(inputArgs[holdIterator]);
+						if(cmdVector.get(i+1).length() == 1 && Integer.parseInt(cmdVector.get(i+1))>0 && Integer.parseInt(cmdVector.get(i+1))<5){
+							for (int holdIterator = 1; holdIterator < 5;holdIterator++)
+							{	
+								try{
+									int k = Integer.parseInt(cmdVector.get(i+holdIterator));
+								}catch(NumberFormatException e){
+									break;
+								}
+								
+								System.out.println("testing next"+ cmdVector.get(i+holdIterator));
+								if(i+holdIterator<cmdVector.size()-1 && Integer.parseInt(cmdVector.get(i+holdIterator))>0 && Integer.parseInt(cmdVector.get(i+holdIterator))<5){
+									int holdingPosition = Integer.parseInt(cmdVector.get(i+holdIterator));
 								if(holdingPosition >= 1 && holdingPosition <= 5){
 									hand.updateHold(holdingPosition-1);
 								}else{
 									System.out.println("Please enter a correct value between 1 to 5 to hold");
 								}
+							} 
 							}	
 						}
+						//hand.printHand();
 						hand.updateHand();
+						//hand.printHand();
 						analyser.updateDraw(hand.getHand());
 						deck.updateRemoveDeck();
 						
 						/** Gives the reward to the player*/
 						reward = prizes.getRewardValue(bet, analyser.getCheckerResult(), analyser.getDraw());
 						player.rewards(reward);
-						hand.printHand();
-					//	analyser.printDraw();
+
 						if (reward == 0)
 						{
 							System.out.println("player loses and his credit is "+ player.getCredits());
@@ -387,10 +413,15 @@ public class Main {
 							handResult = analyser.printHandResult();
 							System.out.println("player wins with "+ handResult + " and his credit is "+ player.getCredits());
 						}
-						
-						//deck.shuffle(); Não há shuffle em debug
-						hand.renewHand(deck.getDeck());
-						stateMachine = 0;
+	
+						if(deck.getSize()>= 10){
+							hand.renewHand(deck.getDeck());
+							stateMachine = 0;
+						}
+						else{
+							System.out.println("No more cards to play, exiting ");
+						}
+					
 					}
 					else{
 						System.out.println("Cannot make hold anything without making a deal!");
@@ -462,9 +493,6 @@ public class Main {
 		}
 			
 		break;
-		
 		}
-		
-	}
-			
+	}	
 }

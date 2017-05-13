@@ -57,7 +57,7 @@ public class Deck {
 	public boolean updateRemoveDeck(){
 		if(this.deck.size()<10) return false;
 		for(int i=0;i<10;i++){
-			deck.remove(i);
+			deck.remove(0);
 		}
 		return true;
 	}

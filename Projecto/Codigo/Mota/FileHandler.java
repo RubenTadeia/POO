@@ -75,7 +75,7 @@ public class FileHandler {
 	
 	
 	public String SetPathName(String c){
-		String reg = "./src/videoPoker/"+c;
+		String reg = "./src/videoPoker/"+c+".txt";
 		return reg;		
 	}
 	
