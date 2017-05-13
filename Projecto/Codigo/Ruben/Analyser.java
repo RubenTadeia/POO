@@ -119,11 +119,13 @@ public class Analyser {
 		int numberOfPairs = 0;
 		/* Need a new name for this variable */
 		int iterationValue = draw.get(0).getValue();
+		int cardValue = 0;
 		
 		for (int i = 1; i < this.draw.size(); i++)
 		{
-			if(iterationValue == draw.get(i).getValue()){
+			if(iterationValue == draw.get(i).getValue() && iterationValue != cardValue){
 				numberOfPairs++;
+				cardValue = draw.get(i).getValue();
 			}
 			
 			if(numberOfPairs == 2)

@@ -78,6 +78,62 @@ public class Strategy {
 		return false;
 	}
 	
+	private boolean checkThree()
+	/** This method checks if there is at least a three of a kind */
+	{
+		int checkPair = 1;
+		/* Need a new name for this variable */
+		int iterationValue = handSorted.get(0).getValue();
+		
+		for (int i = 1; i < this.handSorted.size(); i++)
+		{
+			if(iterationValue == handSorted.get(i).getValue() && iterationValue != 14){
+				checkPair++;
+			}
+			else{
+				checkPair = 1;
+			}
+			if (checkPair == 3)
+			{
+				return true;
+			}
+			iterationValue = handSorted.get(i).getValue();
+		}
+		return false;
+	}
+	
+	private boolean checkPair()
+	/** This method checks if there is at least a pair of Jacks or Higher */
+	{
+		/* Need a new name for this variable */
+		int iterationValue = handSorted.get(0).getValue();
+		
+		for (int i = 1; i < this.handSorted.size(); i++)
+		{
+			if(iterationValue == handSorted.get(i).getValue()){
+				return true;
+			}
+			iterationValue = handSorted.get(i).getValue();
+		}
+		return false;
+	}
+	
+	private boolean checkHighPair()
+	/** This method checks if there is at least a pair of Jacks or Higher */
+	{
+		/* Need a new name for this variable */
+		int iterationValue = handSorted.get(0).getValue();
+		
+		for (int i = 1; i < this.handSorted.size(); i++)
+		{
+			if(iterationValue == handSorted.get(i).getValue() && iterationValue >= 10){
+				return true;
+			}
+			iterationValue = handSorted.get(i).getValue();
+		}
+		return false;
+	}
+	
 	/* This method will gather the indices
 	 * and store them in a integer vector
 	 * we can later update the hold vector in the Hand Class */
@@ -125,13 +181,45 @@ public class Strategy {
 		
 		/** Case 4 - Straight, flush, full house */
 		
-		
+		if (analyserResult == 5){ /* Full House */
+			holdAll();
+			return;
+		}
+		else if (analyserResult == 4){ /* Flush */
+			holdAll();
+			return;
+		}
+		else if (analyserResult == 3){ /* Straight */
+			holdAll();
+			return;
+		}	
 		
 		/** Case 5 - Three of a kind (except aces) */
+		
+		if(checkThree()){
+			for(Card d : handSorted){
+				if (d.getValue() != 14){
+					this.indicesToHold.add(handSorted.indexOf(d));
+					this.indicesToHold.add(handSorted.indexOf(d)+1);
+					this.indicesToHold.add(handSorted.indexOf(d)+2);
+					return;
+				}
+			}
+		}
 		
 		/** Case 6 - 4 to a straight flush */
 		
 		/** Case 7 - Two pair */
+		
+		if (analyserResult == 1){ /* Two Pair */
+			for (int j = 0 ; j<4; j++){
+				if(handSorted.get(j).getValue() == handSorted.get(j+1).getValue()){
+					this.indicesToHold.add(j);
+					this.indicesToHold.add(j+1);
+				}
+			}
+			return;
+		}
 		
 		/** Case 8 - High pair */
 		

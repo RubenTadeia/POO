@@ -6,7 +6,7 @@ public class MainTestes {
 	public static void main(String[] args){
 		
 		ArrayList<String> cardsVector = new ArrayList<String>();;
-		FileHandler fileHandler = new FileHandler("./src/videoPoker/hardHands.txt");
+		FileHandler fileHandler = new FileHandler("./src/videoPoker/newFile.txt");
 		
 		cardsVector = fileHandler.getCardsVector();
 		Deck deck = new Deck(cardsVector);
@@ -16,9 +16,7 @@ public class MainTestes {
 		Analyser analyser = new Analyser(hand.getHand());
 		
 		Strategy strategy = new Strategy(hand.getHand(),analyser.getCheckerResult());
-		
-		hand.printHand();
-		
+				
 		strategy.holdPositionCorrector();
 		
 		for (Card b : strategy.getHandSorted()){
