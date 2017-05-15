@@ -105,7 +105,7 @@ public class Analyser {
 		
 		for (int i = 1; i < this.draw.size(); i++)
 		{
-			if(iterationValue == draw.get(i).getValue() && iterationValue >= 10){
+			if(iterationValue == draw.get(i).getValue() && iterationValue > 10){
 				return true;
 			}
 			iterationValue = draw.get(i).getValue();
@@ -202,8 +202,7 @@ public class Analyser {
 			if (checkFlush()) /* We have Straight flush */
 			{
 				analyseResult = 7;
-				
-				if (draw.get(2).getValue() == 10) /* We have Royal Flush */
+				if (draw.get(2).getValue() == 12) /* We have Royal Flush */
 				{
 					analyseResult = 8;
 				}

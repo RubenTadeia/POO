@@ -3,23 +3,24 @@ package videoPoker;
 public class Statistic {
 	private int[] stats;
 	private float gainPercentage;
+	private int credit;
 	private int initialCredit;
 	
 	public int[] getStats() {
 		return stats;
 	}
 	
-	public int getInitialCredit() {
-		return initialCredit;
-	}
+//	public int getCredit() {
+//		return credit;
+//	}
 	
 	public void setStats(int[] stats) {
 		this.stats = stats;
 	}
 	
-	public void setInitialCredit(int initialCredit) {
-		this.initialCredit = initialCredit;
-	}
+//	public void setCredit(int Credit) {
+//		this.credit = Credit;
+//	}
 	
 	public Statistic(int playerInitialCredit)
 	{
@@ -28,16 +29,16 @@ public class Statistic {
 			stats[i] = 0;
 		}
 		
-		this.initialCredit = playerInitialCredit;
+		this.credit = playerInitialCredit;
 		this.setGainPercentage(0);
 	}
 	
-	public void updateStats(int analyseResult , int playerActualCredit)
+	public void updateStats(int analyseResult , float gainPercentage, int playerActualCredit)
 	{
 		stats[analyseResult]++;
 		stats[10]++;
 		stats[11] = playerActualCredit;
-		this.setGainPercentage((playerActualCredit / initialCredit )*100);
+		this.setGainPercentage(gainPercentage*100);
 	}
 	
 	public String fixedLength(String str, int length){
@@ -48,7 +49,7 @@ public class Statistic {
         return String.format("%1$"+length+"s", str);
 	}
 	
-	public void printStats()
+	public void printStats(int credits)
 	{
 		int maxLength = String.valueOf(this.initialCredit).length()+String.valueOf(this.gainPercentage).length()+4;
 	
@@ -74,7 +75,7 @@ public class Statistic {
 		str[10] = "Royal Flush       |"+fixedLengthString("",maxLength/2-length[8]/2)+stats[8];
 		str[11] = "Other             |"+fixedLengthString("",maxLength/2-length[9]/2)+stats[9];
 		str[13] = "Total             |"+fixedLengthString("",maxLength/2-length[10]/2)+stats[10];
-		str[15] = "Credit            | "+this.initialCredit+" ("+this.gainPercentage+"%)";
+		str[15] = "Credit            | "+credits+" ("+this.gainPercentage+"%)";
 		
 		/* This print in maxLength +1*/
 		str[1]=str[1]+fixedLength("",maxLength+1);

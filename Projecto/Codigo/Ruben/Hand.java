@@ -9,7 +9,11 @@ public class Hand {
 	private boolean[] hold;
 	
 	public Hand(List<Card> deck)
-	{
+	{ 
+		if (deck.size()<10){
+			System.out.println("Not enough cards to play");
+			System.exit(-5);
+			} 
 		this.hold = new boolean[5];
 		for(int i=0;i<10;i++)
 		{
@@ -44,28 +48,27 @@ public class Hand {
 	}
 	
 	public void updateHand(){		
-		int swapPoint = hold.length;
+		int k = 0;
 		for(int i=0;i<hold.length;i++)
 		{
 			if(this.hold[i]==false){
-				Collections.swap(hand, i, swapPoint);
-				hand.remove(hold.length);
+				Collections.swap(hand, i, k+5);
+			k++;
 			}
 		}
 	}
 	
-	public void updateHold(int[] setTrue){
-		for (int i = 0 ; i < setTrue.length ; i++)
-			hold[i]=true;
+	public void updateHold(int setTrue){
+			hold[setTrue]=true;
 	}
 	
 	public void renewHand(List<Card> deck){
-		for(int i=0;i<hold.length;i++)
-		{
-			// There are 2 ways of playing  
-			// if(mode==1)
-			 hand.set(i, deck.get(hand.size()+i));
-			//else hand.set(i, deck.getOneCard(c));
+		
+		for(int i=0;i<hand.size();i++)
+		{	
+			
+			hand.set(i, deck.get(i));
+		
 			if(i<hand.size()/2)
 			{
 				hold[i]=false;
@@ -74,10 +77,21 @@ public class Hand {
 	}
 	
 	public void printHold()
-	{
-		for(int i=0;i<hold.length;i++)
-		{
-			System.out.println(hold[i]);
+	{	
+		if(hold.length==1){
+			System.out.print("player should hold card ");	
 		}
+		else if(hold.length>1){
+			System.out.print("player should hold cards ");	
+		}
+		else if(hold.length==0){
+			System.out.println("player should discard everything");	
+			return;
+		}
+		for(int i=0;i<hold.length;i++)
+		{	if(hold[i]== true)
+				System.out.print(i+1 + " ");
+		}
+		System.out.println("");
 	}
 }
